@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SocketClient } from './utils/socket-client';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'nodesocket-client';
+
+  client = new SocketClient();
+
+  message = "";
+
+  messages$ = this.client.messages$;
+
+  send() {
+    this.client.sendMessage({text: this.message});
+  }
 }
