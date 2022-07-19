@@ -14,14 +14,14 @@ export class SocketClient {
 
   constructor() {
     this.socket.on(ServerMessageTypes.SetInitialData, payload => {
-      const obj = JSON.parse(payload);
+      const obj = payload;
 
       this.messages$.next(obj.initialMessages);
       this.limit$.next(obj.settings.messages.bufferSize);
     });
 
     this.socket.on("add-message-success", message => {
-      const newMessage = JSON.parse(message);
+      const newMessage = message;
       const messages = this.messages$.getValue();
       messages.push(newMessage);
 
@@ -30,7 +30,7 @@ export class SocketClient {
   }
 
   sendMessage(message: Message) {
-    const payload = JSON.stringify(message);
+    const payload = message;
     this.socket.emit(ClientMessageTypes.AddMessage, payload);
   }
 }
